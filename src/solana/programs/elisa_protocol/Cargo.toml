@@ -1,0 +1,11 @@
+[package]
+name = "elisa_protocol"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "elisa_protocol"
+crate-type = ["cdylib", "lib"]
+
+[dependencies]
+anchor-lang = "0.27.0" 

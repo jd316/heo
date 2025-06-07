@@ -1,0 +1,8 @@
+[programs.localnet]
+pcr_protocol = "ReplaceWithProgramID"
+
+[provider]
+cluster = "localnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts] 
