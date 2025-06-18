@@ -1,4 +1,4 @@
-# HEO 2.0 — Hypothesis-to-Experiment Orchestrator
+# HEO — Hypothesis-to-Experiment Orchestrator
 
 Automate AI-driven scientific research workflows with an ElizaOS plugin that handles:
 
