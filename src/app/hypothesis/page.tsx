@@ -5,7 +5,7 @@ export default function HypothesisPage() {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [hypotheses, setHypotheses] = useState<Array<{ id: string; text: string; novelty_score: number }>>([]);
+  const [hypotheses, setHypotheses] = useState<Array<{ id: string; text: string; confidence_score: number }>>([]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -33,7 +33,7 @@ export default function HypothesisPage() {
   }
 
   return (
-    <main className="p-6 max-w-xl mx-auto">
+    <div className="p-6 max-w-xl mx-auto">
       <h1 className="text-2xl font-semibold mb-4">Generate Hypotheses</h1>
       <form onSubmit={handleSubmit} className="flex gap-2 mb-4">
         <input
@@ -56,10 +56,10 @@ export default function HypothesisPage() {
           <div key={h.id} className="border p-4 rounded shadow-sm">
             <p className="font-medium">Hypothesis:</p>
             <p>{h.text}</p>
-            <p className="text-sm text-gray-500">Novelty Score: {h.novelty_score.toFixed(2)}</p>
+            <p className="text-sm text-gray-500">Confidence Score: {h.confidence_score.toFixed(2)}</p>
           </div>
         ))}
       </div>
-    </main>
+    </div>
   );
 } 

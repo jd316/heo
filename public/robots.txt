@@ -1,0 +1,7 @@
+# Allow all except API routes
+User-agent: *
+Disallow: /api/
+ 
+# Sitemap and host
+Sitemap: https://heo.example.com/sitemap.xml
+Host: https://heo.example.com 

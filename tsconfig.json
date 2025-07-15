@@ -27,7 +27,7 @@
   },
   "include": [
     "next-env.d.ts",
-    "src/types/next-eslint.d.ts",
+    "src/types/**/*.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",

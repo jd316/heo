@@ -57,26 +57,9 @@ export class LabAutomationService {
    */
   async fetchResults(runId: string): Promise<unknown> {
     if (this.useMock) {
-      console.warn('LabAutomationService: Missing ECL credentials, generating mock results via Gemini');
-      const geminiApiKey = process.env.GEMINI_API_KEY;
-      if (!geminiApiKey) throw new Error('Gemini API key is required for mock result generation');
-      const modelName = process.env.GEMINI_MODEL_NAME || 'gemini-1.5-flash-latest';
-      const prompt = `Simulate detailed experimental results as JSON for runId: ${runId}`;
-      const [jsonText] = await internalHelpers.callGeminiProService({
-        apiKey: geminiApiKey,
-        prompt,
-        modelName,
-        generationConfig: { temperature: 0.7, maxOutputTokens: 500 },
-      });
-      let cleanText = jsonText.trim();
-      if (cleanText.startsWith('```')) {
-        cleanText = cleanText.replace(/^```(?:json)?\s*/, '').replace(/```$/,'').trim();
-      }
-      try {
-        return JSON.parse(cleanText);
-      } catch {
-        throw new Error(`Failed to parse Gemini mock results JSON: ${cleanText}`);
-      }
+      // Return static mock results when using mock mode
+      console.warn('LabAutomationService: Missing ECL credentials, returning mock results');
+      return { runId, data: { result: 'mock experimental data' } };
     }
     const res = await fetch(`${this.baseUrl}/runs/${runId}/results`, {
       headers: { Authorization: `Bearer ${this.apiKey}` },

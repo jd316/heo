@@ -26,7 +26,7 @@ export default function ProtocolRunner() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch('/api/protocol/templates')
+    fetch('/api/heo/protocol/templates')
       .then(res => res.json())
       .then(json => { if (json.success) setTemplates(json.data); })
       .catch(err => console.error('Failed to load templates:', err));
@@ -58,7 +58,7 @@ export default function ProtocolRunner() {
         parameters,
         initiator_public_key: initiator,
       };
-      const res = await fetch('/api/lab/run', {
+      const res = await fetch('/api/heo/lab/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -78,15 +78,23 @@ export default function ProtocolRunner() {
     if (runId) {
       interval = setInterval(async () => {
         try {
-          const res = await fetch(`/api/lab/run/${runId}`);
+          const res = await fetch('/api/heo/lab/status', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ runId }),
+          });
           const json = await res.json();
           if (json.success) {
             setStatus(json.status);
             if (json.status.status !== 'running') {
               clearInterval(interval);
-              const res2 = await fetch(`/api/lab/run/${runId}/results`);
+              const res2 = await fetch('/api/heo/lab/results', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ runId }),
+              });
               const json2 = await res2.json();
-              if (json2.success) setResults(json2.data);
+              if (json2.success) setResults(json2.results);
             }
           } else {
             setError(json.error);

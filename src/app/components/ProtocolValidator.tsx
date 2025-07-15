@@ -122,14 +122,10 @@ export default function ProtocolValidator() {
           ppe_kit_used: experimentData.safety_measures_observed.ppe_kit_used
         }
       };
-      const response = await fetch('/api/validation', {
+      const response = await fetch('/api/heo/validate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          protocol_instance_id: instanceId,
-          raw_data: rawData,
-          metadata: { executed_by: 'demo-user', execution_timestamp: new Date().toISOString() }
-        })
+        body: JSON.stringify({ protocol_instance_id: protocolInstanceId, raw_data: rawData, metadata: { executed_by: 'demo-user', execution_timestamp: new Date().toISOString() } })
       });
       const json = await response.json();
       if (!json.success) throw new Error(json.error || 'Validation failed');
@@ -165,7 +161,7 @@ export default function ProtocolValidator() {
     setFairLoading(true);
     setFairError(null);
     try {
-      const response = await fetch('/api/publish/fair', {
+      const response = await fetch('/api/heo/fair', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -176,9 +172,9 @@ export default function ProtocolValidator() {
           metadata: { executed_by: 'demo-user' }
         })
       });
-      const json = await response.json();
-      if (!json.success) throw new Error(json.error || 'Publish failed');
-      setFairCid(json.cid);
+      const json2 = await response.json();
+      if (!json2.success) throw new Error(json2.error || 'Publish failed');
+      setFairCid(json2.data.ipfsCid);
     } catch (err) {
       setFairError(err instanceof Error ? err.message : String(err));
     } finally {

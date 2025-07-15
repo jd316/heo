@@ -64,7 +64,7 @@ export default function ProtocolPage() {
   }
 
   return (
-    <main className="p-6 max-w-2xl mx-auto">
+    <div className="p-6 max-w-2xl mx-auto">
       <h1 className="text-2xl font-semibold mb-4">Protocol Templates</h1>
       {error && <p className="text-red-600 mb-4">Error: {error}</p>}
       <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -93,6 +93,6 @@ export default function ProtocolPage() {
           {instance.solana_init_transaction_id && <p>Tx: {instance.solana_init_transaction_id}</p>}
         </div>
       )}
-    </main>
+    </div>
   );
 } 

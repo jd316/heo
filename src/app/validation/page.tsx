@@ -50,7 +50,7 @@ export default function ValidationPage() {
   }
 
   return (
-    <main className="p-6 max-w-xl mx-auto">
+    <div className="p-6 max-w-xl mx-auto">
       <h1 className="text-2xl font-semibold mb-4">Validate Experiment Results</h1>
       <form onSubmit={handleSubmit} className="mb-4">
         <label htmlFor="validationBody" className="block mb-2 font-medium">Experiment JSON</label>
@@ -72,6 +72,6 @@ export default function ValidationPage() {
       {result && (
         <pre className="bg-gray-100 p-4 rounded overflow-auto">{JSON.stringify(result, null, 2)}</pre>
       )}
-    </main>
+    </div>
   );
 } 

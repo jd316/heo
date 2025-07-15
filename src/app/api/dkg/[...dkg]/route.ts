@@ -1,10 +1,9 @@
 import { dkgService } from '@/services/dkgService';
 
-// Initialize DKG client using environment variables
-const context = { config: process.env as Record<string, string>, logger: console };
-dkgService.initialize(context);
-
 export async function GET(request: Request, { params }: { params: { dkg: string[] } }) {
+  // Initialize DKG client per-request using environment variables
+  const context = { config: process.env as Record<string, string>, logger: console };
+  dkgService.initialize(context);
   const [action, subaction, ...rest] = params.dkg || [];
   try {
     switch (action) {
@@ -54,6 +53,9 @@ export async function GET(request: Request, { params }: { params: { dkg: string[
 }
 
 export async function POST(request: Request, { params }: { params: { dkg: string[] } }) {
+  // Initialize DKG client per-request using environment variables
+  const context = { config: process.env as Record<string, string>, logger: console };
+  dkgService.initialize(context);
   const [action, subaction] = params.dkg || [];
   const body = await request.json();
   try {
